@@ -1,0 +1,19 @@
+{
+  "name": "sertvveterinary-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yosp/SertvVeterinary-client.git"
+  },
+  "author": "Yeison Segura <yeisp1011@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yosp/SertvVeterinary-client/issues"
+  },
+  "homepage": "https://github.com/yosp/SertvVeterinary-client#readme"
+}
