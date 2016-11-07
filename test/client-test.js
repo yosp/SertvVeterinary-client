@@ -113,3 +113,74 @@ test('saveClient', async t => {
 
   t.deepEqual(result, apClient)
 })
+
+test('updateClient', async t => {
+  const client = t.context.client
+
+  let apClient = fixtures.getClient()
+  let token = 'XXXX-XXXX-XXXX'
+  nock(options.endpoints.client, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+    .post('/update', apClient)
+    .reply(201, apClient)
+
+  let result = await client.updateClient(apClient, token)
+  t.deepEqual(result, apClient)
+})
+
+test('getClientList', async t => {
+  const client = t.context.client
+
+  let apClient = fixtures.getClient()
+
+  nock(options.endpoints.client)
+    .get('/')
+    .reply(200, apClient)
+
+  let result = await client.getClientList()
+
+  t.deepEqual(result, apClient)
+})
+
+test('getClient', async t => {
+  const client = t.context.client
+
+  let apClient = fixtures.getClient()
+
+  nock(options.endpoints.client)
+    .get(`/${apClient.id}`)
+    .reply(200, apClient)
+
+  let result = await client.getClient(apClient.id)
+
+  t.deepEqual(result, apClient)
+})
+
+test('getClientByPhone', async t => {
+  const client = t.context.client
+
+  let apClient = fixtures.getClient()
+
+  nock(options.endpoints.client)
+    .get(`/byPhone/${apClient.phone}`)
+    .reply(200, apClient)
+
+  let result = await client.getClientByPhone(apClient.phone)
+
+  t.deepEqual(result, apClient)
+})
+
+test('getClientByEmail', async t => {
+  const client = t.context.client
+
+  let apClient = fixtures.getClient()
+
+  nock(options.endpoints.client)
+    .get(`/byEmail/${apClient.email}`)
+    .reply(200, apClient)
+
+  let result = await client.getClientByEmail(apClient.email)
+
+  t.deepEqual(result, apClient)
+})
