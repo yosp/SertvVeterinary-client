@@ -31,6 +31,14 @@ const fixtures = {
       internDate: '10/11/2016',
       status: 'A'
     }
+  },
+
+  getInrec () {
+    return {
+      description: 'Vacuna para tratar la fiebre',
+      medicineId: 21212,
+      appointid: uuid.v4()
+    }
   }
 }
 

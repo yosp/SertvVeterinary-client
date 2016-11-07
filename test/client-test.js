@@ -33,8 +33,8 @@ test('auth', async t => {
   const client = t.context.client
 
   let credentials = {
-    username: 'freddier',
-    password: 'pl4tzi'
+    username: 'juanJuan',
+    password: 'blablaba'
   }
 
   let token = 'xxx-xxx-xxx'
@@ -228,3 +228,32 @@ test('getInternment', async t => {
   t.deepEqual(result, intern)
 })
 
+test('saveInterecord', async t => {
+  const client = t.context.client
+
+  let record = fixtures.getInrec()
+
+  nock(options.endpoints.interecord)
+    .post('/', record)
+    .reply(201, record)
+
+  let result = await client.saveInterecord(record)
+
+  t.deepEqual(result, record)
+})
+
+test('updateInterecord', async t => {
+  const client = t.context.client
+
+  let record = fixtures.getInrec()
+  let token = 'XXXX-XXXX-XXXX'
+  nock(options.endpoints.interecord, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', record)
+    .reply(201, record)
+
+  let result = await client.updateInterecord(record, token)
+
+  t.deepEqual(result, record)
+})
