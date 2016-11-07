@@ -422,3 +422,59 @@ test('getRaceByEthni', async t => {
 
   t.deepEqual(result, rac)
 })
+
+test('savePet', async t => {
+  const client = t.context.client
+
+  let pt = fixtures.getPet()
+
+  nock(options.endpoints.pet)
+    .post('/', pt)
+    .reply(201, pt)
+
+  let result = await client.savePet(pt)
+
+  t.deepEqual(result, pt)
+})
+
+test('getPetsByClient', async t => {
+  const client = t.context.client
+
+  let pt = fixtures.getPet()
+
+  nock(options.endpoints.pet)
+    .get(`/${pt.owner}`)
+    .reply(201, pt)
+
+  let result = await client.getPetsByClient(pt.owner)
+
+  t.deepEqual(result, pt)
+})
+
+test('savePetImage', async t => {
+  const client = t.context.client
+
+  let pti = fixtures.getPetImages()
+
+  nock(options.endpoints.pet)
+    .post('/petimage', pti)
+    .reply(201, pti)
+
+  let result = await client.savePetImage(pti)
+
+  t.deepEqual(result, pti)
+})
+
+test('getPetImages', async t => {
+  const client = t.context.client
+
+  let pti = fixtures.getPetImages()
+
+  nock(options.endpoints.pet)
+    .get(`/petimage/${pti.petid}`)
+    .reply(200, pti)
+
+  let result = await client.getPetImages(pti.petid)
+
+  t.deepEqual(result, pti)
+})

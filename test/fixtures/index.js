@@ -60,6 +60,27 @@ const fixtures = {
       ethniid: uuid.v4(),
       description: 'Husky'
     }
+  },
+
+  getPet () {
+    return {
+      id: uuid.v4(),
+      owner: uuid.v4(),
+      fullname: 'Eli Segura',
+      sex: 'H',
+      color: 'Blanco, Gris, Negro',
+      borndate: '01/25/2015',
+      weight: '45',
+      alive: true
+    }
+  },
+
+  getPetImages () {
+    return {
+      id: uuid.v4(),
+      url: 'http://perros.mascotahogar.com/Imagenes/cachorro-de-husky-siberiano.jpg',
+      petid: uuid.v4()
+    }
   }
 }
 
