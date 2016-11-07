@@ -37,7 +37,13 @@ const fixtures = {
     return {
       description: 'Vacuna para tratar la fiebre',
       medicineId: 21212,
-      appointid: uuid.v4()
+      internid: uuid.v4()
+    }
+  },
+  getEthni () {
+    return {
+      id: uuid.v4(),
+      description: 'Perros'
     }
   }
 }

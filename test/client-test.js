@@ -257,3 +257,62 @@ test('updateInterecord', async t => {
 
   t.deepEqual(result, record)
 })
+
+test('getInterecord', async t => {
+  const client = t.context.client
+
+  let record = fixtures.getInrec()
+
+  nock(options.endpoints.interecord)
+    .get(`/${record.internid}`)
+    .reply(200, record)
+
+  let result = await client.getInterecord(record.internid)
+
+  t.deepEqual(result, record)
+})
+
+test('saveEthni', async t => {
+  const client = t.context.client
+
+  let ethni = fixtures.getEthni()
+
+  nock(options.endpoints.ethnicities)
+    .post('/', ethni)
+    .reply(201, ethni)
+
+  let result = await client.saveEthni(ethni)
+
+  t.deepEqual(result, ethni)
+})
+
+test('updateEthni', async t => {
+  const client = t.context.client
+
+  let ethni = fixtures.getEthni()
+  let token = 'xxx-xxx-xxx'
+
+  nock(options.endpoints.ethnicities, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', ethni)
+    .reply(201, ethni)
+
+  let result = await client.updateEthni(ethni, token)
+
+  t.deepEqual(result, ethni)
+})
+
+test('getEthni', async t => {
+  const client = t.context.client
+
+  let ethni = fixtures.getEthni()
+
+  nock(options.endpoints.ethnicities)
+    .get('/')
+    .reply(200, ethni)
+
+  let result = await client.getEthni(ethni.id)
+
+  t.deepEqual(result, ethni)
+})
