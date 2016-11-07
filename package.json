@@ -1,10 +1,14 @@
 {
   "name": "sertvveterinary-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "SertvVeterinary http client",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "standard",
+    "test": "npm run lint && ava"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,18 @@
   "bugs": {
     "url": "https://github.com/yosp/SertvVeterinary-client/issues"
   },
-  "homepage": "https://github.com/yosp/SertvVeterinary-client#readme"
+  "homepage": "https://github.com/yosp/SertvVeterinary-client#readme",
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-eslint": "^7.1.0",
+    "nock": "^9.0.2",
+    "standard": "^8.5.0",
+    "uuid-base62": "^0.1.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "request": "^2.78.0",
+    "request-promise": "^4.1.1",
+    "sertvveterinary-db": "file:../sertvveterinary-db"
+  }
 }
