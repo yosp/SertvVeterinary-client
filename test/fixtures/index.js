@@ -45,6 +45,13 @@ const fixtures = {
       id: uuid.v4(),
       description: 'Perros'
     }
+  },
+
+  getLab () {
+    return {
+      id: uuid.v4(),
+      description: 'Laboratorio General'
+    }
   }
 }
 

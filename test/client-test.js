@@ -316,3 +316,62 @@ test('getEthni', async t => {
 
   t.deepEqual(result, ethni)
 })
+
+test('saveLaboratory', async t => {
+  const client = t.context.client
+
+  let lab = fixtures.getLab()
+
+  nock(options.endpoints.laboratory)
+    .post('/', lab)
+    .reply(201, lab)
+
+  let result = await client.saveLaboratory(lab)
+
+  t.deepEqual(result, lab)
+})
+
+test('updateLaboratory', async t => {
+  const client = t.context.client
+
+  let lab = fixtures.getLab()
+  let token = 'xxx-xxx-xxx'
+
+  nock(options.endpoints.laboratory, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', lab)
+    .reply(201, lab)
+
+  let result = await client.updateLaboratory(lab, token)
+
+  t.deepEqual(result, lab)
+})
+
+test('getLaboratorys', async t => {
+  const client = t.context.client
+
+  let lab = fixtures.getLab()
+
+  nock(options.endpoints.laboratory)
+    .get(`/${lab.id}`)
+    .reply(200, lab)
+
+  let result = await client.getLaboratorys(lab.id)
+
+  t.deepEqual(result, lab)
+})
+
+test('getLaboratorysList', async t => {
+  const client = t.context.client
+
+  let lab = fixtures.getLab()
+
+  nock(options.endpoints.laboratory)
+    .get('/')
+    .reply(200, lab)
+
+  let result = await client.getLaboratorysList()
+
+  t.deepEqual(result, lab)
+})
