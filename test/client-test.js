@@ -184,3 +184,47 @@ test('getClientByEmail', async t => {
 
   t.deepEqual(result, apClient)
 })
+
+test('saveInternment', async t => {
+  const client = t.context.client
+
+  let intern = fixtures.getInter()
+
+  nock(options.endpoints.internment)
+    .post('/', intern)
+    .reply(201, intern)
+
+  let result = await client.saveInternment(intern)
+
+  t.deepEqual(result, intern)
+})
+
+test('updateInternment', async t => {
+  const client = t.context.client
+
+  let intern = fixtures.getInter()
+  let token = 'XXXX-XXXX-XXXX'
+  nock(options.endpoints.internment, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+    .post('/update', intern)
+    .reply(201, intern)
+
+  let result = await client.updateInternment(intern, token)
+  t.deepEqual(result, intern)
+})
+
+test('getInternment', async t => {
+  const client = t.context.client
+
+  let intern = fixtures.getInter()
+
+  nock(options.endpoints.internment)
+    .get(`/${intern.petid}`)
+    .reply(200, intern)
+
+  let result = await client.getInternment(intern.petid)
+
+  t.deepEqual(result, intern)
+})
+

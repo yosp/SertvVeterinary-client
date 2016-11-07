@@ -22,6 +22,15 @@ const fixtures = {
       phone: '809-414-8433',
       phone2: '829-926-6545'
     }
+  },
+
+  getInter () {
+    return {
+      petid: uuid.v4(),
+      description: 'Pasiente con fiebre',
+      internDate: '10/11/2016',
+      status: 'A'
+    }
   }
 }
 
