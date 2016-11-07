@@ -375,3 +375,50 @@ test('getLaboratorysList', async t => {
 
   t.deepEqual(result, lab)
 })
+
+test('saveRace', async t => {
+  const client = t.context.client
+
+  let rac = fixtures.getRace()
+
+  nock(options.endpoints.race)
+    .post('/', rac)
+    .reply(201, rac)
+
+  let result = await client.saveRace(rac)
+
+  t.deepEqual(result, rac)
+})
+
+test('updateRace', async t => {
+  const client = t.context.client
+
+  let rac = fixtures.getRace()
+  let token = 'XXXX-XXXX-XXXX'
+
+  nock(options.endpoints.race, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .post('/update', rac)
+    .reply(201, rac)
+
+  let result = await client.updateRace(rac, token)
+
+  t.deepEqual(result, rac)
+})
+
+test('getRaceByEthni', async t => {
+  const client = t.context.client
+
+  let rac = fixtures.getRace()
+
+  nock(options.endpoints.race)
+    .get(`/${rac.ethniid}`)
+    .reply(200, rac)
+
+  let result = await client.getRaceByEthni(rac.ethniid)
+
+  t.deepEqual(result, rac)
+})

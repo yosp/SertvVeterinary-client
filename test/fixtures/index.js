@@ -52,6 +52,14 @@ const fixtures = {
       id: uuid.v4(),
       description: 'Laboratorio General'
     }
+  },
+
+  getRace () {
+    return {
+      id: uuid.v4(),
+      ethniid: uuid.v4(),
+      description: 'Husky'
+    }
   }
 }
 
