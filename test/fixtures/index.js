@@ -81,6 +81,14 @@ const fixtures = {
       url: 'http://perros.mascotahogar.com/Imagenes/cachorro-de-husky-siberiano.jpg',
       petid: uuid.v4()
     }
+  },
+
+  getMed () {
+    return {
+      id: uuid.v4(),
+      labid: uuid.v4(),
+      description: 'Pulgoso'
+    }
   }
 }
 

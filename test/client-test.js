@@ -478,3 +478,48 @@ test('getPetImages', async t => {
 
   t.deepEqual(result, pti)
 })
+
+test('saveMedicine', async t => {
+  const client = t.context.client
+
+  let med = fixtures.getMed()
+
+  nock(options.endpoints.medicine)
+    .post('/', med)
+    .reply(201, med)
+
+  let result = await client.saveMedicine(med)
+
+  t.deepEqual(result, med)
+})
+
+test('updateMedicine', async t => {
+  const client = t.context.client
+
+  let med = fixtures.getMed()
+  let token = 'XXXX-XXXX-XXXX'
+
+  nock(options.endpoints.medicine, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', med)
+    .reply(201, med)
+
+  let result = await client.updateMedicine(med)
+
+  t.deepEqual(result, med)
+})
+
+test('getMedicineByLab', async t => {
+  const client = t.context.client
+
+  let med = fixtures.getMed()
+
+  nock(options.endpoints.medicine)
+    .get(`/${med.labid}`)
+    .reply(200, med)
+
+  let result = await client.getMedicineByLab(med.labid)
+
+  t.deepEqual(result, med)
+})
