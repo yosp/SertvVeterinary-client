@@ -523,3 +523,62 @@ test('getMedicineByLab', async t => {
 
   t.deepEqual(result, med)
 })
+
+test('saveAppointment', async t => {
+  const client = t.context.client
+
+  let apo = fixtures.getApo()
+
+  nock(options.endpoints.appointment)
+    .post('/', apo)
+    .reply(201, apo)
+
+  let result = await client.saveAppointment(apo)
+
+  t.deepEqual(result, apo)
+})
+
+test('updateAppointment', async t => {
+  const client = t.context.client
+
+  let apo = fixtures.getApo()
+  let token = 'xxx-xxx-xxx'
+
+  nock(options.endpoints.appointment, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', apo)
+    .reply(201, apo)
+
+  let result = await client.updateAppointment(apo, token)
+
+  t.deepEqual(result, apo)
+})
+
+test('getAppointments', async t => {
+  const client = t.context.client
+
+  let apo = fixtures.getApo()
+
+  nock(options.endpoints.appointment)
+    .get('/')
+    .reply(200, apo)
+
+  let result = await client.getAppointments()
+
+  t.deepEqual(result, apo)
+})
+
+test('getAppointmentByPet', async t => {
+  const client = t.context.client
+
+  let apo = fixtures.getApo()
+
+  nock(options.endpoints.appointment)
+    .get(`/${apo.petid}`)
+    .reply(200, apo)
+
+  let result = await client.getAppointmentByPet(apo.petid)
+
+  t.deepEqual(result, apo)
+})

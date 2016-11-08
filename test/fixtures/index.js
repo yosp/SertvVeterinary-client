@@ -89,6 +89,16 @@ const fixtures = {
       labid: uuid.v4(),
       description: 'Pulgoso'
     }
+  },
+
+  getApo () {
+    return {
+      id: uuid.v4(),
+      petid: uuid.v4(),
+      description: 'Vacunacion de parasitos',
+      appointmentDate: '07/24/2015',
+      status: 'A'
+    }
   }
 }
 
