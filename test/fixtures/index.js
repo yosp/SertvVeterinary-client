@@ -99,6 +99,25 @@ const fixtures = {
       appointmentDate: '07/24/2015',
       status: 'A'
     }
+  },
+
+  getApr () {
+    return {
+      id: uuid.v4(),
+      apid: uuid.v4(),
+      medicineId: uuid.v4(),
+      note: 'Some Note'
+    }
+  },
+
+  getProd () {
+    return {
+      id: uuid.v4(),
+      description: 'Bonabid',
+      stock: 8,
+      cost: 100,
+      price: 180
+    }
   }
 }
 

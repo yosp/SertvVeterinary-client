@@ -582,3 +582,93 @@ test('getAppointmentByPet', async t => {
 
   t.deepEqual(result, apo)
 })
+
+test('saveApRecord', async t => {
+  const client = t.context.client
+
+  let apr = fixtures.getApr()
+
+  nock(options.endpoints.aprecord)
+    .post('/', apr)
+    .reply(201, apr)
+
+  let result = await client.saveApRecord(apr)
+
+  t.deepEqual(result, apr)
+})
+
+test('updateApRecord', async t => {
+  const client = t.context.client
+
+  let apr = fixtures.getApr()
+  let token = 'xxx-xxx-xxx'
+
+  nock(options.endpoints.aprecord, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', apr)
+    .reply(201, apr)
+
+  let result = await client.updateApRecord(apr, token)
+
+  t.deepEqual(result, apr)
+})
+
+test('getApRecord', async t => {
+  const client = t.context.client
+
+  let apr = fixtures.getApr()
+
+  nock(options.endpoints.aprecord)
+    .get(`/${apr.apid}`)
+    .reply(200, apr)
+
+  let result = await client.getApRecord(apr.apid)
+
+  t.deepEqual(result, apr)
+})
+
+test('saveProduct', async t => {
+  const client = t.context.client
+
+  let pro = fixtures.getProd()
+
+  nock(options.endpoints.products)
+    .post('/', pro)
+    .reply(201, pro)
+
+  let result = await client.saveProduct(pro)
+
+  t.deepEqual(result, pro)
+})
+
+test('updateProducts', async t => {
+  const client = t.context.client
+
+  let pro = fixtures.getProd()
+  let token = 'xxx-xxx-xxx'
+
+  nock(options.endpoints.products, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', pro)
+    .reply(201, pro)
+
+  let result = await client.updateProducts(pro, token)
+
+  t.deepEqual(result, pro)
+})
+
+test('getProducts', async t => {
+  const client = t.context.client
+
+  let pro = fixtures.getProd()
+
+  nock(options.endpoints.products)
+    .get(`/${pro.description}`)
+    .reply(200, pro)
+
+  let result = await client.getProducts(pro.description)
+
+  t.deepEqual(result, pro)
+})
