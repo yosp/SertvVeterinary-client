@@ -118,6 +118,25 @@ const fixtures = {
       cost: 100,
       price: 180
     }
+  },
+
+  getBl () {
+    return {
+      id: uuid.v4(),
+      client: uuid.v4(),
+      note: 'Factura de cliente exporadico',
+      createdAt: '10/01/2017'
+    }
+  },
+
+  getBlDetail () {
+    return {
+      billid: uuid.v4(),
+      productId: uuid.v4(),
+      amount: 4,
+      unitPrice: 20,
+      subPrice: 80
+    }
   }
 }
 

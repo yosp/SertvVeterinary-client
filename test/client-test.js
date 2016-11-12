@@ -672,3 +672,108 @@ test('getProducts', async t => {
 
   t.deepEqual(result, pro)
 })
+
+test('saveBills', async t => {
+  const client = t.context.client
+
+  let bl = fixtures.getBl()
+
+  nock(options.endpoints.bills)
+    .post('/', bl)
+    .reply(201, bl)
+
+  let result = await client.saveBills(bl)
+
+  t.deepEqual(result, bl)
+})
+
+test('updateBill', async t => {
+  const client = t.context.client
+
+  let bl = fixtures.getBl()
+  let token = 'xxx-xxx-xxx'
+
+  nock(options.endpoints.bills, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', bl)
+    .reply(201, bl)
+
+  let result = await client.updateBill(bl, token)
+
+  t.deepEqual(result, bl)
+})
+
+test('getBill', async t => {
+  const client = t.context.client
+
+  let bl = fixtures.getBl()
+
+  nock(options.endpoints.bills)
+    .get(`/${bl.id}`)
+    .reply(200, bl)
+
+  let result = await client.getBill(bl.id)
+
+  t.deepEqual(result, bl)
+})
+
+test('getBillByDate', async t => {
+  const client = t.context.client
+
+  let bl = fixtures.getBl()
+  let dates = {
+    dateA: '11/01/2016',
+    dateB: '11/30/2016'
+  }
+
+  nock(options.endpoints.bills)
+    .post(`/byDate`, dates)
+    .reply(200, bl)
+
+  let result = await client.getBillByDate(dates)
+
+  t.deepEqual(result, bl)
+})
+
+test('saveBillDetail', async t => {
+  const client = t.context.client
+
+  let bld = fixtures.getBlDetail()
+
+  nock(options.endpoints.billdetail)
+    .post('/')
+    .reply(201, bld)
+
+  let result = await client.saveBillDetail(bld)
+  t.deepEqual(result, bld)
+})
+
+test('updateBillDetail', async t => {
+  const client = t.context.client
+
+  let bld = fixtures.getBlDetail()
+  let token = 'xxx-xxx-xxx'
+
+  nock(options.endpoints.billdetail, {
+    headers: {'Authorization': `Bearer ${token}`}
+  })
+    .post('/update', bld)
+    .reply(201, bld)
+
+  let result = await client.updateBillDetail(bld, token)
+  t.deepEqual(result, bld)
+})
+
+test('getBillDetail', async t => {
+  const client = t.context.client
+
+  let bld = fixtures.getBlDetail()
+
+  nock(options.endpoints.billdetail)
+    .get(`/${bld.billid}`)
+    .reply(200, bld)
+
+  let result = await client.getBillDetail(bld.billid)
+  t.deepEqual(result, bld)
+})
